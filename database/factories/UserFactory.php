@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -36,5 +37,28 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function guardStudent()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'guard' => 'student',
+                'guardable_id' => function (){
+                    // $student = Student::factory()->create();
+                    // return $student->id;
+                },
+                'guardable_type' => Student::class,
+            ];
+        });
+    }
+
+    public function guardTeacher()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'guard' => 'teacher',
+            ];
+        });
     }
 }
