@@ -39,26 +39,25 @@ class UserFactory extends Factory
         ]);
     }
 
-    public function guardStudent()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'guard' => 'student',
-                'guardable_id' => function (){
-                    // $student = Student::factory()->create();
-                    // return $student->id;
-                },
-                'guardable_type' => Student::class,
-            ];
-        });
-    }
+    // public function guardStudent()
+    // {
+    //     return $this->state(function (array $attributes) {
+    //         return [
+    //             'guard' => 'student',
+    //             'guardable_id' => function (){
+                    
+    //             },
+    //             'guardable_type' => Student::class,
+    //         ];
+    //     });
+    // }
 
-    public function guardTeacher()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'guard' => 'teacher',
-            ];
-        });
-    }
+    // public function guardTeacher()
+    // {
+    //     return $this->state(function (array $attributes) {
+    //         return [
+    //             'guard' => 'teacher',
+    //         ];
+    //     });
+    // }
 }

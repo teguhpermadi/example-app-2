@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,5 +28,22 @@ class TeacherFactory extends Factory
             'village_id' => \Indonesia::allVillages()->random()->id,
             'kodepos' => fake()->postcode(),
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Teacher $teacher) {
+            //
+    })->afterCreating(function (Teacher $teacher, User $user) {
+            $user->guard = 'teacher';
+            $user->guardable_id = $teacher->id;
+            $user->guardable_type = Teacher::class;
+            $user->save();
+        });
     }
 }

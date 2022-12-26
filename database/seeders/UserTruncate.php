@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class TeacherSeeder extends Seeder
+class UserTruncate extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +18,10 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->has(Teacher::factory())->create();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        User::truncate();
+        Student::truncate();
+        Teacher::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -45,16 +45,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // fungsi ini berguna untuk relasi factory
     public function student()
     {
         return $this->hasOne(User::class);
     }
 
+    // fungsi ini berguna untuk relasi factory
     public function teacher()
     {
         return $this->hasOne(User::class);
     }
 
+    // fungsi ini berguna untuk relasi ORM
     public function guardable()
     {
         return $this->morphTo();

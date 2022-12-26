@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->uuid('id')->change();
             $table->string('username')->unique()->after('id')->nullable();
-            $table->string('guard')->default('student');
-            // $table->string('guard');
-            $table->integer('guardable_id')->nullable();
+            $table->string('guard')->nullable();
+            $table->string('guardable_id')->nullable();
             $table->string('guardable_type')->nullable();
             $table->enum('is_active', [1,0])->default(1);
         });

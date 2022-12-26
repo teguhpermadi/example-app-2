@@ -62,4 +62,21 @@ class StudentFactory extends Factory
             'telp_wali' => fake()->phoneNumber(),
         ];
     }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Student $student) {
+            //
+    })->afterCreating(function (Student $student, User $user) {
+            $user->guard = 'student';
+            $user->guardable_id = $student->id;
+            $user->guardable_type = Student::class;
+            $user->save();
+        });
+    }
 }
