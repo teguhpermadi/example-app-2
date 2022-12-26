@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "awobaz/compoships": "^2.1",
         "doctrine/dbal": "^3.5",
+        "filament/filament": "^2.16",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -68,12 +69,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": {
-        "teguhpermadi/siakad": {
-            "type": "path",
-            "url": "C:\\laragon\\www\\example-app-2\\packages/teguhpermadi/siakad",
-            "options": {
-                "symlink": true
-            }
-        }
+        
     }
 }
