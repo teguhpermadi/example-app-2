@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\StudentResource\Pages;
+use App\Filament\Resources\StudentResource\RelationManagers;
+use App\Models\Student;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\Field;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -17,31 +19,21 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class StudentResource extends Resource
 {
-    protected static ?string $model = User::class;
-    
+    protected static ?string $model = Student::class;
+
     protected static ?string $navigationGroup = 'Settings';
-    
-    protected static ?int $navigationSort = 1;
-    
+
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')->required(),
-                TextInput::make('username')->unique()->required(),
-                TextInput::make('email')
-                    ->email()
-                    ->required(),
-                TextInput::make('password')
-                    ->password()
-                    ->same('passwordConfirmation')
-                    ->required(),
-                TextInput::make('passwordConfirmation')
-                    ->password(),
+                
             ]);
     }
 
@@ -49,13 +41,11 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
-                BadgeColumn::make('guard')
+                TextColumn::make('nama_lengkap'),
+                BadgeColumn::make('jenis_kelamin')
                 ->enum([
-                    '' => 'Unknown',
-                    'teacher' => 'Guru',
-                    'student' => 'Murid',
+                    'l' => 'Laki-laki',
+                    'p' => 'Perempuan',
                 ]),
             ])
             ->filters([
@@ -84,9 +74,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListStudents::route('/'),
+            'create' => Pages\CreateStudent::route('/create'),
+            'edit' => Pages\EditStudent::route('/{record}/edit'),
         ];
     }    
 }
