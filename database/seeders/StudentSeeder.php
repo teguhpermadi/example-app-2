@@ -16,6 +16,14 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->has(Student::factory())->create();
+        User::factory()
+            ->has(Student::factory() // setiap user memiliki data student
+            ->state(function (array $attributes, User $user) { 
+                return [
+                    'nama_lengkap' => $user->name, // ubah nama lengkap sesuai dengan nama user
+                    'nama_panggilan' => strtok($user->name, ' '), // ubah nama panggilan sesuai dengan kata pertama nama lengkap user
+                ];
+            })
+        )->create();
     }
 }

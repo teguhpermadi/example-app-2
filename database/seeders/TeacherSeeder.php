@@ -16,6 +16,14 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->has(Teacher::factory())->create();
+        User::factory()
+            ->has(Teacher::factory() // setiap user memiliki data teacher
+                ->state(function (array $attributes, User $user) {
+                    return [
+                        'nama_lengkap' => $user->name, // ubah nama lengkap sesuai dengan nama user
+                        'nama_panggilan' => strtok($user->name, ' '), // ubah nama panggilan sesuai dengan kata pertama nama lengkap user
+                    ];
+            })
+        )->create();
     }
 }

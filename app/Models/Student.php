@@ -10,6 +10,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravolt\Indonesia\Models\City as IndonesiaCity;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village as IndonesiaVillage;
 
 /**
  * Class Student
@@ -226,10 +230,10 @@ class Student extends Model
         $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 
-    public function getTanggalLahirAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
-    }
+    // public function getTanggalLahirAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('d/m/Y');
+    // }
 
 	public function user()
     {

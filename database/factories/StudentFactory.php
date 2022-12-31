@@ -37,21 +37,21 @@ class StudentFactory extends Factory
             'nik' => fake()->numerify('################'),
             'nkk' => fake()->numerify('################'),
             'status_ayah' => fake()->randomElement(JenisStatus::all()->pluck('id')),
-            'nik_ayah' => fake()->numerify('################'),
+            // 'nik_ayah' => fake()->numerify('################'),
             'nama_ayah' => fake()->name(),
             'agama_ayah' => fake()->randomElement(JenisAgama::all()->pluck('id')),
             'pendidikan_ayah' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
-            'pekerjaan_ayah' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
-            'penghasilan_ayah' => fake()->randomElement(JenisPenghasilan::all()->pluck('id')),
-            'telp_ayah' => fake()->phoneNumber(),
+            // 'pekerjaan_ayah' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
+            // 'penghasilan_ayah' => fake()->randomElement(JenisPenghasilan::all()->pluck('id')),
+            // 'telp_ayah' => fake()->phoneNumber(),
             'status_ibu' => fake()->randomElement(JenisStatus::all()->pluck('id')),
-            'nik_ibu' => fake()->numerify('################'),
+            // 'nik_ibu' => fake()->numerify('################'),
             'nama_ibu' => fake()->name(),
             'agama_ibu' => fake()->randomElement(JenisAgama::all()->pluck('id')),
             'pendidikan_ibu' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
-            'pekerjaan_ibu' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
-            'penghasilan_ibu' => fake()->randomElement(JenisPenghasilan::all()->pluck('id')),
-            'telp_ibu' => fake()->phoneNumber(),
+            // 'pekerjaan_ibu' => fake()->randomElement(JenisPendidikan::all()->pluck('id')),
+            // 'penghasilan_ibu' => fake()->randomElement(JenisPenghasilan::all()->pluck('id')),
+            // 'telp_ibu' => fake()->phoneNumber(),
             'hubungan_wali' => fake()->randomElement(JenisHubungan::all()->pluck('id')),
             'nik_wali' => fake()->numerify('################'),
             'nama_wali' => fake()->name(),
@@ -71,8 +71,23 @@ class StudentFactory extends Factory
     public function configure()
     {
         return $this->afterMaking(function (Student $student) {
-            //
-    })->afterCreating(function (Student $student, User $user) {
+            // jika status ayah masih hidup generate datanya
+            if($student->status_ayah == 1){
+                $student->nik_ayah = fake()->numerify('################');
+                $student->pekerjaan_ayah = fake()->randomElement(JenisPendidikan::all()->pluck('id'));
+                $student->penghasilan_ayah = fake()->randomElement(JenisPenghasilan::all()->pluck('id'));
+                $student->telp_ayah = fake()->phoneNumber();
+            }
+
+            // jika status ibu masih hidup generate datanya
+            if($student->status_ibu == 1){
+                $student->nik_ibu = fake()->numerify('################');
+                $student->pekerjaan_ibu = fake()->randomElement(JenisPendidikan::all()->pluck('id'));
+                $student->penghasilan_ibu = fake()->randomElement(JenisPenghasilan::all()->pluck('id'));
+                $student->telp_ibu = fake()->phoneNumber();
+            }
+        })->afterCreating(function (Student $student, User $user) {
+            // ubah data user guard kemudian simpan
             $user->guard = 'student';
             $user->guardable_id = $student->id;
             $user->guardable_type = Student::class;

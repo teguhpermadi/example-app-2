@@ -40,6 +40,7 @@ class TeacherFactory extends Factory
         return $this->afterMaking(function (Teacher $teacher) {
             //
     })->afterCreating(function (Teacher $teacher, User $user) {
+            // ubah data user guard kemudian simpan
             $user->guard = 'teacher';
             $user->guardable_id = $teacher->id;
             $user->guardable_type = Teacher::class;
