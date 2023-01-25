@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\GuardableIdRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Field;
@@ -77,7 +78,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            GuardableIdRelationManager::class,
         ];
     }
     

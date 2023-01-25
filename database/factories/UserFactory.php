@@ -62,4 +62,18 @@ class UserFactory extends Factory
     //     });
     // }
 
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (User $user) {
+            // isi username berdasarkan name
+            $user->username = Str::replace(' ', '', $user->name);
+    })->afterCreating(function (User $user) {
+            //
+        });
+    }
 }

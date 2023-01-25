@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             JenisPegawaiSeeder::class,
             StudentSeeder::class,
             TeacherSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
